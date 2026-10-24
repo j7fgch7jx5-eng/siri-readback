@@ -1,4 +1,10 @@
-# Siri Readback
+# Siri Retrofit
+
+Give your older devices a new way to reach Siri AI. Siri Retrofit uses your Mac to do the work, with text messaging as the interface. Your Mac stays on to handle incoming requests.
+
+## Current status
+
+Local readback works today; messaging integration is experimental.
 
 A human-reviewed local reader built on [siri-cli by Pasithea](https://github.com/Pasithea0/siri-cli). It submits one request to the Mac's Siri and returns attributable text or a readable document for review.
 
