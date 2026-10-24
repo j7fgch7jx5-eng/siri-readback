@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "siri-readback"
-version = "0.1.0"
-description = "Human-reviewed macOS Siri readback prototype; automatic operation unverified"
+version = "0.2.0"
+description = "Reviewed local macOS Siri text and document readback"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
@@ -14,15 +14,19 @@ dependencies = [
   "pyobjc-framework-ApplicationServices>=9.0; sys_platform == 'darwin'",
   "pyobjc-framework-Vision>=9.0; sys_platform == 'darwin'",
   "pyobjc-framework-Cocoa>=9.0; sys_platform == 'darwin'",
+  "pypdf>=5.0",
+  "pyobjc-framework-Quartz>=9.0; sys_platform == 'darwin'",
   "click>=8.0",
   "mcp>=1.0",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7.0", "pytest-mock>=3.0"]
+dev = ["pytest>=7.0", "pytest-mock>=3.0", "reportlab>=4.0"]
 
 [project.scripts]
-siri-readback = "siri_cli.cli:main"
+siri-readback = "siri_cli.local_readback:main"
+siri-readback-review = "siri_cli.review_result:main"
+siri-readback-strict = "siri_cli.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

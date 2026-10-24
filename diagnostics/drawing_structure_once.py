@@ -16,9 +16,9 @@ from siri_cli.preview_provider import (NativePreviewPort, Turn, scope_changes,
 from siri_cli.capture.transaction import SubmissionState
 from siri_cli.relay import Incoming, Ticket, RelayFailure
 
-QUERY = 'find my drawing of batteries connected in series'
-REQUESTS = {'series': QUERY, 'transistor': 'find my transistor drawing',
-            'caption-series': 'Show me the series connection diagram that I drew not too long ago'}
+QUERY = 'find my sample document'
+REQUESTS = {'series': QUERY, 'transistor': 'find my alternate sample document',
+            'caption-series': 'Find the sample document.'}
 
 
 def describe_response(response, transcript_bounds, ax):

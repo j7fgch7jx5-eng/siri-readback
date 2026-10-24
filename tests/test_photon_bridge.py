@@ -93,7 +93,7 @@ def test_actual_js_signed_event_cross_language_and_nonthrowing_error_receipt():
   script='''import {signedJob,servicePort,durableReceipts} from MODULE;
  const [root,keyHex]=process.argv.slice(1);const key=Buffer.from(keyHex,'hex');
  const space={id:'space-A',type:'dm',send:async()=>undefined};
- const message={id:'cross-lang',sender:{id:'alice'},platform:'imessage',direction:'inbound',content:{type:'text',text:"what’s weather"}};
+ const message={id:'cross-lang',sender:{id:'alice'},platform:'imessage',direction:'inbound',content:{type:'text',text:"what’s next"}};
  const job=signedJob({project:'project',line:'fixture-line',space,message,key});
  const receipts=await durableReceipts(root+'/receipts');let sends=0;
  space.send=async()=>{sends++;return undefined;};

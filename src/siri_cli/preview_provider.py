@@ -168,7 +168,8 @@ class NativePreviewPort:
         from .capture.deadline import bounded_ax_reads
         ticket.check()
         with bounded_ax_reads(ticket.deadline):
-            if self.backend._find_pid()!=self.pid:raise RelayFailure('siri_process_replaced')
+            observed_pid=self.backend._find_pid();ticket.check()
+            if observed_pid!=self.pid:raise RelayFailure('siri_process_replaced')
             windows=self.backend._windows(ax.app_for_pid(self.pid))
             if len(windows)!=1:raise RelayFailure('unique_siri_window_required')
             root=ax.snapshot_tree(windows[0],structural=True)
@@ -203,6 +204,8 @@ class NativePreviewPort:
                     self.base=identity
                 else:raise RelayFailure('siri_scope_replaced')
             if not hasattr(self,'base'):self.base=identity
+            validator=getattr(self,'validate_observed_structure',None)
+            if validator:validator(identity,prompts,responses)
             value=ax._get_attr_checked(composer.ref,'AXValue') or ''
             texts=['\n'.join(ax.extract_scoped_texts(ax.snapshot_tree(n.ref))) for n in prompts] if self.submitted and len(prompts)==1 else []
             ready=False

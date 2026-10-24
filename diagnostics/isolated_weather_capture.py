@@ -11,9 +11,9 @@ from siri_cli.capture import ax, current
 from siri_cli.capture.deadline import bounded_ax_reads
 from siri_cli.driver.siriai import SiriAiBackend
 
-REQUESTED_PROMPT="what's weather"
-ALLOWED_PROMPTS=(REQUESTED_PROMPT,'what’s weather')  # Explicit diagnostic-only alias.
-EXPECTED_LABELS=['Lehigh Acres','66°','Partly Cloudy','H:82° L:65°']
+REQUESTED_PROMPT="what's next"
+ALLOWED_PROMPTS=(REQUESTED_PROMPT,'what’s next')  # Explicit diagnostic-only alias.
+EXPECTED_LABELS=['Example City','20°','Clear','H:25° L:15°']
 
 
 def describe_prompt(value,segments=None):

@@ -41,3 +41,12 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Local reader output, uncertainty holds and private deliveries
+readback-runs/
+local-state/
+quarantine/
+backups/
+delivery/
+*.zip
+*.tar.gz

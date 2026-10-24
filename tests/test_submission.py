@@ -44,7 +44,7 @@ def test_identical_query_has_independent_acknowledgement():
 
 def bound_state():
     refs=(681,object(),object(),object(),object(),None,None)
-    return SubmissionState('weather-ordering','what’s weather',binding=refs),refs
+    return SubmissionState('weather-ordering','what’s next',binding=refs),refs
 
 
 def test_inferred_weather_response_before_prompt_waits_for_bound_acknowledgement():
@@ -53,7 +53,7 @@ def test_inferred_weather_response_before_prompt_waits_for_bound_acknowledgement
     state,refs=bound_state();response=object();prompt=object()
     assert state.observe('',[],1,identity=(*refs[:5],None,response))=='awaiting_acknowledgement'
     assert not state.acknowledged
-    assert state.observe('', ['what’s weather'],1,identity=(*refs[:5],prompt,response))=='generating'
+    assert state.observe('', ['what’s next'],1,identity=(*refs[:5],prompt,response))=='generating'
     assert state.acknowledged
 
 
@@ -82,15 +82,15 @@ def test_response_seen_before_prompt_cannot_be_replaced_or_disappear():
 def test_bound_prompt_replacement_and_disappearance_are_interruptions():
     for replacement in (None,object()):
         state,refs=bound_state();response=object()
-        state.observe('', ['what’s weather'],1,identity=(*refs[:5],object(),response))
-        fails(lambda:state.observe('', ['what’s weather'] if replacement else [],1,
+        state.observe('', ['what’s next'],1,identity=(*refs[:5],object(),response))
+        fails(lambda:state.observe('', ['what’s next'] if replacement else [],1,
             identity=(*refs[:5],replacement,response)),ValueError)
 
 
 def test_binding_cannot_be_added_after_submission_or_omit_continuity():
     state,refs=bound_state()
     fails(lambda:state.observe('',[],1),ValueError)
-    unbound=SubmissionState('unbound','what’s weather')
+    unbound=SubmissionState('unbound','what’s next')
     fails(lambda:unbound.observe('',[],1,identity=(*refs[:5],None,object())),ValueError)
 
 
@@ -102,4 +102,4 @@ def test_pre_submission_binding_cannot_contain_a_preexisting_turn():
 def test_ordering_tolerance_preserves_composer_interference_check():
     state,refs=bound_state();response=object()
     state.observe('',[],1,identity=(*refs[:5],None,response))
-    fails(lambda:state.observe('what’s weather',[],1,identity=(*refs[:5],None,response)),ValueError)
+    fails(lambda:state.observe('what’s next',[],1,identity=(*refs[:5],None,response)),ValueError)

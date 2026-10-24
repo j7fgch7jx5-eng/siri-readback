@@ -16,3 +16,8 @@ def isolate_ax_helpers():
     finally:
         ax._element_to_snapshot = _snapshot
         ax._children = _children
+
+
+@pytest.fixture(autouse=True)
+def isolated_attempt_state(tmp_path,monkeypatch):
+    monkeypatch.setenv('SIRI_READBACK_STATE_ROOT',str(tmp_path/'attempt-state'))

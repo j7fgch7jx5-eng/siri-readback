@@ -10,14 +10,14 @@ from test_turn_scope import fails
 
 
 def test_only_explicit_weather_spellings_are_accepted():
-    assert experiment.exact_prompt("what's weather")=="what's weather"
-    assert experiment.exact_prompt('what’s weather')=='what’s weather'
-    for query in ('what is weather'," what's weather",'show me exam 3 study guide'):
+    assert experiment.exact_prompt("what's next")=="what's next"
+    assert experiment.exact_prompt('what’s next')=='what’s next'
+    for query in ('what is next'," what's next",'show sample study material'):
         fails(lambda:experiment.exact_prompt(query),ValueError)
 
 
 def test_mismatch_exposes_whitespace_unicode_without_normalization():
-    for value in ("what's weather\n","what's\u00a0weather",'what\u02bcs weather',"what's weather\u200b"):
+    for value in ("what's next\n","what's\u00a0next",'what\u02bcs next',"what's next\u200b"):
         try:experiment.exact_prompt(value)
         except experiment.PromptMismatch as exc:
             o=exc.prompt_observation
@@ -29,7 +29,7 @@ def test_mismatch_exposes_whitespace_unicode_without_normalization():
 
 def test_mismatch_is_saved_before_response_content_or_renderer_is_touched():
     root,composer,_,_,prompt,response,prior=paired_fixture();reads=[]
-    value="what's weather\u00a0"
+    value="what's next\u00a0"
     prompt.children[0].element.value=value
     def snapshot(ref,**kwargs):
         if kwargs.get('structural'):return root
@@ -64,7 +64,7 @@ def test_two_response_nodes_block_inspection_before_content_readback():
 def paired_fixture():
     from test_turn_scope import fixture,n
     root,composer,pane,transcript,_=fixture([])
-    prompt=n(children=[n('AXStaticText','what’s weather')],identifier='userPrompt')
+    prompt=n(children=[n('AXStaticText','what’s next')],identifier='userPrompt')
     prior=n(children=[n('AXStaticText','PRIVATE EARLIER ANSWER')],identifier='modelResponse')
     card=n('AXCell',children=[n('AXStaticText',s) for s in experiment.EXPECTED_LABELS],
            identifier='Identifier:ResultCell',bounds=(10,110,200,80))
@@ -130,7 +130,7 @@ def test_overlap_classification_preserves_production_rejection():
 
 def sample():
     return {'window_ref':object(),'identity':tuple(object() for _ in range(5)),
-        'region':{'bounds':(10,10,20,20)},'signature':'same','actual_prompt':'what’s weather',
+        'region':{'bounds':(10,10,20,20)},'signature':'same','actual_prompt':'what’s next',
         'state':{'text':'Weather only'},'labels':experiment.EXPECTED_LABELS.copy()}
 
 

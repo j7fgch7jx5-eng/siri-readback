@@ -88,10 +88,10 @@ def test_pixel_review_uses_actual_image_ocr_and_rejects_wrong_title():
     with TemporaryDirectory() as d:
         p=Path(d)/'actual.png';p.write_bytes(b'current pixels')
         with patch('siri_cli.pixel_review.validate_png'):
-            good=PixelReviewer(lambda path:[('Lehigh Acres 66 partly cloudy',.99)])
-            assert good(p,T(),'Lehigh Acres')==hashlib.sha256(p.read_bytes()).hexdigest()
+            good=PixelReviewer(lambda path:[('Example City 66 partly cloudy',.99)])
+            assert good(p,T(),'Example City')==hashlib.sha256(p.read_bytes()).hexdigest()
             fails(lambda:good(p,T(),'Miami'),RelayFailure)
-            fails(lambda:PixelReviewer(lambda path:[('Lehigh Acres',.2)])(p,T(),'Lehigh Acres'),RelayFailure)
+            fails(lambda:PixelReviewer(lambda path:[('Example City',.2)])(p,T(),'Example City'),RelayFailure)
 
 
 def test_nonempty_preparation_refuses_composer_interference_before_menu():

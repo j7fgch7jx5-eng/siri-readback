@@ -19,7 +19,7 @@ def handoff_fixture():
  identity=(*refs[:4],object(),None,object())
  before={'phase':'before_submit','raw_children':0,'prompt_count':0,'response_count':0,'nodes':{'pane':{'path':[0,2]},'transcript':{'path':[0,2,0],'role':'AXUnknown','identifier':'chatSessionView'}}}
  after={'phase':'after_submit','raw_children':1,'prompt_count':0,'response_count':1,'nodes':{'pane':{'path':[0,2]},'transcript':{'path':[0,2,0],'role':'AXScrollArea','identifier':'chatSessionView'}},'same':{'pid':True,'window':True,'pane':True,'composer':True,'transcript':False}}
- return SubmissionState('new-run',"what's weather",binding=refs),Turn(identity,'',[],1,handoff={'old_identity':refs,'before':before,'after':after})
+ return SubmissionState('new-run',"what's next",binding=refs),Turn(identity,'',[],1,handoff={'old_identity':refs,'before':before,'after':after})
 
 def test_observed_placeholder_allocation_accepts_orphan_only_while_awaiting_prompt():
  from siri_cli.preview_provider import apply_placeholder_handoff
@@ -28,7 +28,7 @@ def test_observed_placeholder_allocation_accepts_orphan_only_while_awaiting_prom
   assert state.observe('',[],1,identity=turn.identity)=='awaiting_acknowledgement'
   assert state.acknowledged is False and state.run_id=='new-run'
   prompt=object();identity=(*turn.identity[:5],prompt,turn.identity[6])
-  assert state.observe('',["what's weather"],1,identity=identity)=='generating'
+  assert state.observe('',["what's next"],1,identity=identity)=='generating'
 
 def test_handoff_rejects_history_extra_turns_changed_paths_outer_scope_and_repeated_transition():
  from siri_cli.preview_provider import apply_placeholder_handoff
@@ -63,15 +63,15 @@ def test_loading_response_replacement_is_provisional_but_positive_response_is_pi
  from siri_cli.capture.transaction import SubmissionState
  from test_turn_scope import fails
  refs=(681,object(),object(),object(),object());prompt=object();loading=object();actual=object()
- state=SubmissionState('fresh',"what's weather",binding=(*refs,None,None))
+ state=SubmissionState('fresh',"what's next",binding=(*refs,None,None))
  with patch('siri_cli.capture.transaction._same_ref',lambda a,b:a is b):
   pending=Turn((*refs,None,loading),'',[],1,ready=False)
   assert observe_preview_turn(state,pending)=='awaiting_acknowledgement'
   assert state.binding[6] is None
-  pending.prompts=["what's weather"];pending.identity=(*refs,prompt,loading)
+  pending.prompts=["what's next"];pending.identity=(*refs,prompt,loading)
   assert observe_preview_turn(state,pending)=='generating'
   assert state.binding[5] is prompt and state.binding[6] is None
-  ready=Turn((*refs,prompt,actual),'',["what's weather"],1,ready=True)
+  ready=Turn((*refs,prompt,actual),'',["what's next"],1,ready=True)
   observe_preview_turn(state,ready);assert state.binding[6] is actual
   ready.identity=(*refs,prompt,object())
   fails(lambda:observe_preview_turn(state,ready),ValueError)

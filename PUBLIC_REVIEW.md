@@ -1,47 +1,23 @@
-# Public staging review
+# Public source review
 
-Prepared for the proposed `j7fgch7jx5-eng/siri-readback` repository. This is a local staging copy only: no Git repository was initialized, no remote was added, and nothing was pushed or published.
+This update targets the existing public `j7fgch7jx5-eng/siri-readback` main branch and preserves its history and MIT/Pasithea attribution. Author and committer use only the repository owner's existing anonymous account and GitHub noreply identity.
 
-## Contents and attribution
+## Included and withheld
 
-The MIT license preserves `Copyright (c) 2026 Pasithea` and adds `Copyright (c) 2026 j7fgch7jx5-eng`. The README describes a human-reviewed early prototype and explicitly states that the latest live local readback did not capture because of a bounds guard. It does not claim unattended automatic operation, an installer, or a public service.
+Included: reviewed reader source, portable launchers, offline regression tests, synthetic structural fixtures, package metadata, and sanitized usage/validation notes. Existing generic transport source remains gated; no deployment or automatic delivery is enabled.
 
-Source and offline tests were copied, not moved. Matching upstream tests are under `tests/upstream`. Generic transport code is included without a working deployment or credentials. The installation and original working sources were not edited.
+Withheld: credentials, environment files, personal paths/contacts/account identifiers, private requests/answers, journals, uncertainty state, actual documents/images, screenshots, logs, backups, private reports and delivery archives. No directory containing private evidence or output was traversed for copying. Demonstration-specific literals retained in older tracked diagnostics/fixtures were replaced with synthetic examples in the current tree. Existing main history was not rewritten.
 
-## Sanitization in this copy
+Generic runtime parameter names, synthetic fixture identities, standard system paths and exact built-in Siri refusal sentences are code/test vocabulary, not credentials or recorded personal conversations. The anonymous repository namespace and required MIT fork notice are intentionally retained.
 
-- Replaced the private destination in bridge tests with an opaque fixture line.
-- Replaced test login/contact strings with opaque fixture identities.
-- Changed the test-only signing material to ephemeral bytes generated during tests; no signing material was copied into this repository.
-- Removed private evidence references from structural fixture metadata and gave the fixtures generic names. Fixtures contain only roles, geometry and boolean checks, never personal text or image bytes.
-- Rewrote a long numeric mock deadline as an arithmetic expression with the same value to eliminate a phone-pattern false positive.
-- Created independent fork package metadata and a fork version; the working package was not changed.
+## Portability changes
 
-## Files deliberately withheld
+The launchers use the active Python environment, with the existing explicit override supported. PDF parsing is a declared dependency; the private host-runtime cache fallback was removed. Synthetic PDF generation is a development dependency. No dependency was installed on the publishing host. The private delivery and installed setup remain untouched.
 
-No credentials, environment files, real service identifiers, phone numbers, message history, personal captures, logs, runtime databases, caches, installed dependencies, prior archives or private reports were copied. Host-bound Photon launch/receive/send scripts and the private request plan were withheld. The SDK/harness-specific `tests/test_drawing_review_offline.py` was withheld because it requires those private entrypoints. Generic service-port tests remain in `tests/test_photon_bridge.py`.
+## Verification
 
-## Scan results
+The public checkout's own complete offline suite passed: **466 tests in 8.98 seconds**, using existing dependencies read-only, with bytecode/cache writes disabled. Tests used fixtures/fake senders; no Siri query, message body read, receiver or external send ran. Local private live validation is summarized separately in VALIDATION.md and is not substituted for the public test count.
 
-The final staged tree was searched with case-insensitive content patterns and a broad credential/identity keyword pass. Literal-pattern findings after sanitation:
+The complete staged file inventory and diff are reviewed before commit. The staged/committed tree is scanned for credential literals, phone/email patterns, personal home paths, private identity markers, real project/message identifiers, actual recorded requests/answers and prohibited artifact file types. Synthetic cryptographic material is generated at test time. Standard PDF cross-reference zero padding and generic lock/system paths are reviewed structural data, not personal data.
 
-| Category | Matches |
-| --- | ---: |
-| credential-like literals | 0 |
-| phone-like digit sequences | 0 |
-| email addresses | 0 |
-| absolute personal home paths | 0 |
-| service message or project identifiers | 0 |
-| known private identity markers | 0 |
-
-The broad keyword pass still finds cryptographic parameter names, request-idempotency tokens, database column names and the generic Photon adapter name. These were reviewed as code vocabulary, not embedded credentials or real service identities. Synthetic sender names and generated signing bytes are test data. No unresolved secret or personal-data finding remains in this review; pattern scans are not an exhaustive security audit.
-
-## Offline verification
-
-**291 tests passed in 3.04 seconds** in the staged copy using existing dependencies read-only. Caching and bytecode writes were disabled. No live SDK, listener, Siri query or send was invoked by this suite. The omitted private harness wrapper accounts for the one-test difference from the working project's 292-test suite.
-
-## Uncertain files
-
-None included with unresolved provenance or privacy uncertainty. Environment-bound deployment files were excluded rather than guessed safe. `src/siri_cli/messages_live.py` and `diagnostics/photon/service_port.mjs` are generic, explicitly gated transport source, not supplied credentials or enabled deployment configuration. They still require a human code review before anyone configures live use.
-
-See `FILES.txt` for the complete staged file list. The earlier working-project evidence and installed setup remain outside this folder.
+See PUBLIC_SCAN.md for final scan categories/results and FILES.txt for the published file list. No unresolved private-data finding is included. Pattern scans are not an exhaustive security audit.

@@ -20,7 +20,7 @@ def acceptance_passed(result):
 
 
 def _run(run):
-    query='show me exam 3 study guide'
+    query='show sample study material'
     backend=SiriAiBackend(foreground=True)
     start=time.monotonic()
     result={'query':query,'run':run,'ask_success':False,

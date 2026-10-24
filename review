@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+READBACK_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+READBACK_PYTHON=${SIRI_READBACK_PYTHON:-python3}
+if ! command -v "$READBACK_PYTHON" >/dev/null 2>&1; then
+  echo 'Missing native Python. Set SIRI_READBACK_PYTHON to the existing Python with PyObjC; nothing was installed.' >&2
+  exit 2
+fi
+export PYTHONPATH="$READBACK_ROOT/src:$READBACK_ROOT${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONDONTWRITEBYTECODE=1
+export SIRI_READBACK_OUTPUT_ROOT="${SIRI_READBACK_OUTPUT_ROOT:-$READBACK_ROOT/readback-runs}"
+exec "$READBACK_PYTHON" -m siri_cli.review_result "$@"

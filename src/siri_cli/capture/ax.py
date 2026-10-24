@@ -36,6 +36,7 @@ class AXReadError(ValueError):
         self.operation = operation
         self.error_code = int(error_code)
         self.structural_path = None
+        self.snapshot_context = None
         super().__init__(f'{operation} read failed ({error_code}); incomplete snapshot')
 
 
@@ -44,9 +45,12 @@ def ax_read_failure(error):
     while error is not None and id(error) not in seen:
         seen.add(id(error))
         if isinstance(error,AXReadError):
-            return {'operation':error.operation,'error_code':error.error_code,
+            result = {'operation':error.operation,'error_code':error.error_code,
                     'structural_path':list(error.structural_path) if error.structural_path is not None else None,
                     'path_origin':'snapshot_root','node_attributes_required_for_path':False}
+            if error.snapshot_context is not None:
+                result['snapshot_context'] = error.snapshot_context
+            return result
         error=error.__cause__
     return None
 
@@ -236,7 +240,15 @@ def walk_tree(el) -> Iterator[AXElement]:
 def snapshot_tree(el, *, max_depth: int = 40, structural: bool = False) -> AXNode:
     """Build an AXNode snapshot tree from a raw AX element (live sessions)."""
 
-    def _build(raw, depth: int, path: tuple) -> AXNode:
+    # Retain only roles and known layout identifiers, never labels/values or
+    # arbitrary identifiers (which can contain filenames or personal data).
+    layout_ids = {'innerChatSessionView', 'chatSessionView', 'promptView',
+                  'promptViewTextField', 'userPrompt', 'modelResponse',
+                  'modelResponse-richTextParagraph', 'modelResponse-richTextCustomView',
+                  'chatGridView'}
+
+    def _build(raw, depth: int, path: tuple, ancestors: tuple) -> AXNode:
+        node = None
         try:
             node = AXNode(element=_element_to_snapshot(raw, strict=True, structural=structural), ref=raw)
             import ApplicationServices as ax
@@ -248,15 +260,23 @@ def snapshot_tree(el, *, max_depth: int = 40, structural: bool = False) -> AXNod
             # The child ordinal is known before any attributes of it are read.
             # Preserve it without retrying, querying the failed node or skipping it.
             error.structural_path = path
+            error.snapshot_context = {
+                'mode': 'structural' if structural else 'content',
+                'ancestors': list(ancestors),
+                'failing_node_snapshot_available': node is not None,
+                'partial_snapshot_returned': False,
+            }
             raise
         if depth < max_depth:
-            node.children = [_build(c, depth + 1, path + (i,)) for i, c in enumerate(children)]
+            descriptor = {'path': list(path), 'role': node.element.role,
+                          'identifier': node.element.identifier if node.element.identifier in layout_ids else None}
+            node.children = [_build(c, depth + 1, path + (i,), ancestors + (descriptor,)) for i, c in enumerate(children)]
         else:
             node.complete = not children
         node.complete = node.complete and all(c.complete for c in node.children)
         return node
 
-    return _build(el, 0, ())
+    return _build(el, 0, (), ())
 
 
 def find_element(
