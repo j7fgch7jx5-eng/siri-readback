@@ -1,0 +1,82 @@
+{
+  "source": "Sanitized structural fixture; no response text or image data",
+  "scope": "current modelResponse only; candidate pixels are not fixture inputs",
+  "structure": [
+    {
+      "path": [],
+      "role": "AXGroup",
+      "identifier": "modelResponse",
+      "bounds": [
+        325,
+        172,
+        462,
+        385
+      ],
+      "actions": [
+        "AXScrollToVisible"
+      ],
+      "actions_error": null,
+      "fully_in_transcript": true,
+      "fully_in_response": true
+    },
+    {
+      "path": [
+        0
+      ],
+      "role": "AXStaticText",
+      "identifier": "modelResponse-richTextParagraph",
+      "bounds": [
+        355,
+        172,
+        329,
+        36
+      ],
+      "actions": [
+        "AXScrollToVisible"
+      ],
+      "actions_error": null,
+      "fully_in_transcript": true,
+      "fully_in_response": true
+    },
+    {
+      "path": [
+        1
+      ],
+      "role": "AXGroup",
+      "identifier": "modelResponse-richTextCustomView",
+      "bounds": [
+        337,
+        228,
+        438,
+        328
+      ],
+      "actions": [
+        "AXScrollToVisible"
+      ],
+      "actions_error": null,
+      "fully_in_transcript": true,
+      "fully_in_response": true
+    },
+    {
+      "path": [
+        1,
+        0
+      ],
+      "role": "AXButton",
+      "identifier": null,
+      "bounds": [
+        337,
+        228,
+        438,
+        328
+      ],
+      "actions": [
+        "AXScrollToVisible",
+        "AXPress"
+      ],
+      "actions_error": null,
+      "fully_in_transcript": true,
+      "fully_in_response": true
+    }
+  ]
+}

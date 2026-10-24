@@ -1,0 +1,99 @@
+{
+  "source": "Sanitized structural fixture; no response text or image data",
+  "structure": [
+    {
+      "path": [],
+      "role": "AXGroup",
+      "identifier": "modelResponse",
+      "bounds": [
+        336,
+        188,
+        654,
+        440
+      ],
+      "child_count": 3,
+      "actions": [
+        "AXScrollToVisible"
+      ]
+    },
+    {
+      "path": [
+        0
+      ],
+      "role": "AXStaticText",
+      "identifier": "modelResponse-richTextParagraph",
+      "bounds": [
+        366,
+        188,
+        399,
+        18
+      ],
+      "child_count": 0,
+      "actions": [
+        "AXScrollToVisible"
+      ]
+    },
+    {
+      "path": [
+        1
+      ],
+      "role": "AXGroup",
+      "identifier": "modelResponse-richTextCustomView",
+      "bounds": [
+        348,
+        226,
+        630,
+        345
+      ],
+      "child_count": 1,
+      "actions": [
+        "AXScrollToVisible"
+      ]
+    },
+    {
+      "path": [
+        1,
+        0
+      ],
+      "role": "AXButton",
+      "identifier": null,
+      "bounds": [
+        348,
+        226,
+        630,
+        345
+      ],
+      "child_count": 0,
+      "actions": [
+        "AXScrollToVisible",
+        "AXPress"
+      ]
+    },
+    {
+      "path": [
+        2
+      ],
+      "role": "AXStaticText",
+      "identifier": "modelResponse-richTextParagraph",
+      "bounds": [
+        366,
+        592,
+        553,
+        36
+      ],
+      "child_count": 0,
+      "actions": [
+        "AXScrollToVisible"
+      ]
+    }
+  ],
+  "identity_checks": {
+    "pid": true,
+    "window": true,
+    "pane": true,
+    "composer": true,
+    "transcript": true,
+    "prompt": true,
+    "response": true
+  }
+}

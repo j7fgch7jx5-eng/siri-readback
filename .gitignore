@@ -1,0 +1,43 @@
+# Secrets and local configuration
+.env*
+*.key
+*.token
+*.pem
+*.p12
+*.pfx
+*credentials*
+*secrets*
+config.local.*
+
+# Evidence, runtime state and personal media
+evidence/
+logs/
+artifacts/
+mailbox/
+state/
+*.log
+*.jsonl
+*.sqlite
+*.sqlite3
+*.db
+*.png
+*.jpg
+*.jpeg
+*.heic
+*.pdf
+*.mov
+*.mp4
+
+# Python / Node / editor caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+*.egg-info/
+build/
+dist/
+.DS_Store
+.idea/
+.vscode/
